@@ -21,7 +21,7 @@ Route::group(['prefix' => 'auth'], function() {
     // middleware('api_csrf_verify')
     Route::post('login', 'Auth\AuthController@login');
     Route::post('register', 'Auth\AuthController@register');
-    // Route::middleware('auth:sanctum')->post('logout', 'Auth\AuthController@logout');
+    Route::middleware('auth:sanctum')->post('logout', 'Auth\AuthController@logout');
     // Route::post('anonymous', 'Auth\AuthController@GetAnonymousToken');
     Route::get('email/verify/{id}/{hash}', 'Auth\AuthController@EmailVerify')->name('api.verification.verify');
     Route::post('forgot-password', 'Auth\AuthController@ForgotPassword')->name('api.password.email');
@@ -32,6 +32,10 @@ Route::group(['prefix' => 'auth'], function() {
     });
 });
 
-Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group(['prefix' => 'cake',
+        'middleware'=> ['internal_permit:cake', 'access_log']
+], function() {
+    Route::get('test', function(){
+        dd(123);
+    });
 });

@@ -177,6 +177,10 @@ return [
         App\Providers\FortifyServiceProvider::class,
         App\Providers\JetstreamServiceProvider::class,
 
+        /*
+        * Log Repository service providers
+        */
+        App\Repositories\Log\AccessLogRepositoryServiceProvider::class,
     ],
 
     /*
